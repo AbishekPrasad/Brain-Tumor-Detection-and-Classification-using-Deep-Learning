@@ -13,27 +13,27 @@ def preprocess_image(image_path, target_size=(224, 224)):
     normalized = colored / 255.0
     return original, np.expand_dims(normalized, axis=0)
 
-def detect_and_draw_box(image_path):
+def predict_image(model_path, image_path):
+    model = load_model(model_path)
     original, input_img = preprocess_image(image_path)
     prediction = model.predict(input_img)[0]
     predicted_class_index = np.argmax(prediction)
     predicted_class = class_names[predicted_class_index]
     confidence = prediction[predicted_class_index]
 
-    print(f"Prediction: {predicted_class} ({confidence*100:.2f}%)")
-
     if predicted_class != 'no_tumor':
         gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         _, thresh = cv2.threshold(blurred, 130, 255, cv2.THRESH_BINARY)
-
         contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
         for cnt in contours:
             if cv2.contourArea(cnt) > 100:
                 x, y, w, h = cv2.boundingRect(cnt)
                 cv2.rectangle(original, (x, y), (x + w, y + h), (255, 255, 255), 2)
                 cv2.putText(original, f"{predicted_class} ({confidence*100:.1f}%)",
                             (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+
 
     rgb_image = cv2.cvtColor(original, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(8, 6))
@@ -42,4 +42,4 @@ def detect_and_draw_box(image_path):
     plt.axis('off')
     plt.show()
 
-detect_and_draw_box("test.jpg")  
+    return predicted_class, confidence
