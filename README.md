@@ -4,7 +4,7 @@ This project aims to classify brain MRI images into four categories — **Glioma
 
 ---
 
-## 🧪 Model Overview
+## Model Overview
 
 - Architecture: Convolutional Neural Network (CNN)
 - Input: MRI brain image (`224x224x3`)
@@ -16,7 +16,7 @@ This project aims to classify brain MRI images into four categories — **Glioma
 
 ---
 
-## 🖼 Sample Output
+## Sample Output
 
 The model detects tumors and draws bounding boxes around them using OpenCV:
 
