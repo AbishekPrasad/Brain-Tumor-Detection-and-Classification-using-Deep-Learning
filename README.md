@@ -4,28 +4,6 @@ This project aims to classify brain MRI images into four categories — **Glioma
 
 ---
 
-## 📂 Project Structure
-brain-tumor-classification/
-│
-├── data/ # Dataset (Training / Testing splits)
-├── model/
-│ └── brain_tumor_classification_model.keras # Trained Keras model
-├── notebook/
-│ └── BrainTumorTraining.ipynb # Jupyter notebook (optional)
-├── scripts/
-│ ├── train.py # Model training script
-│ └── predict.py # Tumor prediction and visualization
-├── utils/
-│ ├── data_generator.py # Custom data generator for training
-│ └── preprocessing.py # Image preprocessing utilities
-├── test_images/
-│ └── test.jpg # Sample test image
-├── main.py # Example script to test model prediction
-├── requirements.txt # Python dependencies
-└── README.md
-
----
-
 ## 🧪 Model Overview
 
 - Architecture: Convolutional Neural Network (CNN)
